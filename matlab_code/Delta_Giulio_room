@@ -1,0 +1,44 @@
+
+%  channel ID to read data from:
+readChannelID = 852298;
+% list of relevant fields
+fieldID1 = 1;
+
+fieldID2 = 3;
+fieldID3 = 5;
+
+% Channel Read API Key 
+
+readAPIKey = '5APFX9NW5QHXDC2F';
+
+%% Read Data %%
+
+% Read first data variable
+A = thingSpeakRead(readChannelID, 'Field', fieldID1, 'NumPoints', 8000, 'ReadKey', readAPIKey,'outputFormat','timetable');
+
+% Read second data variable
+B = thingSpeakRead(readChannelID, 'Field', fieldID2, 'NumPoints', 8000, 'ReadKey', readAPIKey,'outputFormat','timetable');
+% Read third
+C = thingSpeakRead(readChannelID, 'Field', fieldID3, 'NumPoints', 8000, 'ReadKey', readAPIKey,'outputFormat','timetable');
+
+% Synchronize two timestables and fill in missing data using linear interpolation
+TT = synchronize(A,B,'union','linear');
+TT = synchronize(TT,C,'union','linear');
+%% Visualize Data %%
+figure;
+%yyaxis left;
+%plot(time1, data1);
+%legend({'Salotto','letto'});
+%yyaxis right;
+%plot(time2, newdata);
+
+delta1=TT.TemperatureGiulioRoom - TT.TemperatureMainBedroom;
+delta2=TT.TemperatureGiulioRoom - TT.TemperatureLivingRoom;
+
+% Plot Temperature delta over time
+plotyy(TT.Timestamps,delta1,TT.Timestamps,delta2);
+        
+title('Temperature delta related to Giulio room ');
+xlabel('Temperature ');
+legend('Giulio room vs Main bedroom','Giulio room vs Leaving room');
+
