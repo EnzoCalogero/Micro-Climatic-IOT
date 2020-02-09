@@ -7,11 +7,12 @@
 
 #define DHTTYPE DHT11 // DHT 11
 
-const char *ssid = "xxxxxxxxx"; // Your wifi ssid
-const char *password = "xxxxxxxxxxxxx"; //Your wifi password
 
-unsigned long myChannelNumber = xxxxxxxxx;
-const char * myWriteAPIKey = "xxxxxxxxxxxxx";
+const char *ssid = "VM5519451"; // Your wifi ssid
+const char *password = "Tf2rydsjyzrn"; //Your wifi password
+
+unsigned long myChannelNumber = 852298;
+const char * myWriteAPIKey = "1PY74AK38D9KC0HL";
 
 const char* server = "api.thingspeak.com";
 
@@ -90,9 +91,10 @@ void setup() {
 }
 
 void loop() {
-    lcd.setBacklight(3);
-    // put your main code here, to run repeatedly:
-    delay(20000);
+    lcd.init();   // initializing the LCD
+    lcd.backlight();
+ 
+    
     float h = dht.readHumidity();
     //celcius
     float t = dht.readTemperature();
@@ -140,5 +142,5 @@ void loop() {
     if(client.connect(server,80)){
         updateThingSpeak(t,h);
     }
-    
+  delay(20000);
 }
