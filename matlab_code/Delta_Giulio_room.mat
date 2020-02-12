@@ -1,6 +1,6 @@
 
 %  channel ID to read data from:
-readChannelID = 852298;
+readChannelID = 00000000;
 % list of relevant fields
 fieldID1 = 1;
 
@@ -9,7 +9,7 @@ fieldID3 = 5;
 
 % Channel Read API Key 
 
-readAPIKey = '5APFX9NW5QHXDC2F';
+readAPIKey = 'xxxxxxxxxxxxxxxx';
 
 %% Read Data %%
 
